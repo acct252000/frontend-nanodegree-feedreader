@@ -1,12 +1,14 @@
 /* feedreader.js
  *
  * This is the spec file that Jasmine will read and contains
- * all of the tests that will be run against your application.
+ * all of the tests that will be run in the application.
  */
 /* We're placing all of our tests within the $() function,
  * since some of these tests may require DOM elements. We want
  * to ensure they don't run until the DOM is ready.
- */
+ *
+
+ These tests were updated by Christine Stoner, Udacity student, September 22-23, 2016*/
 $(function() {
     /* This is our first test suite - a test suite just contains
      * a related set of tests. This suite is all about the RSS
@@ -47,8 +49,6 @@ $(function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.name).toBeDefined();
                 expect(feed.name).not.toBeNull();
-                //use two to check for just quotes("")
-                expect(feed.name.length).toBeGreaterThan(2);
             });
         });
     });
@@ -62,6 +62,7 @@ $(function() {
          */
 
         it('is hidden by default', function() {
+            expect($('body').hasClass('menu-hidden').toBeDefined);
             expect($('body').hasClass('menu-hidden')).toBe(true);
         });
 
@@ -69,12 +70,13 @@ $(function() {
         /* Our second test ensures the menu changes
          * visibility when the menu icon is clicked. This test
          * has two expectations: does the menu display when
-         * clicked and does it hide when clicked again.  I did not test the class
-         name in case there were later changes to css.
+         * clicked and does it hide when clicked again. 
          */
 
         it('changes visibility when the menu icon is clicked', function() {
+            expect(menuIconTest).toBeDefined();
             menuIconTest.click();
+            expect($('body').hasClass('menu-hidden').toBeDefined);
             expect($('body').hasClass('menu-hidden')).toBe(false);
             menuIconTest.click();
             expect($('body').hasClass('menu-hidden')).toBe(true);
@@ -100,6 +102,7 @@ $(function() {
 
 
         it('should have one at least one entry', function(done) {
+            expect($('.feed').find('.entry').length).toBeDefined();
             expect($('.feed').find('.entry').length).toBeGreaterThan(0);
             done();
 
@@ -121,14 +124,17 @@ $(function() {
 
         beforeEach(function(done) {
             loadFeed(0);
-            testContent = $('.feed').find('h2').first().text();
+            if ($('.feed').find('h2').first().text()) {
+                testContent = $('.feed').find('h2').first().text();
+            }
             loadFeed(1, done);
         });
 
 
         it('should change content', function(done) {
+            expect(testContent).toBeDefined();
             testContent2 = $('.feed').find('h2').first().text();
-
+            expect(testContent2).toBeDefined();
             expect(testContent).not.toBe(testContent2);
             done();
 
