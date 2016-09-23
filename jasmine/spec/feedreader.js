@@ -120,7 +120,6 @@ $(function() {
         var testContent, testContent2;
 
         beforeEach(function(done) {
-            loadFeed(0, cbLoadSecondFeed());
 
             function cbLoadSecondFeed() {
                 if ($('.feed').find('h2').first().text()) {
@@ -128,6 +127,8 @@ $(function() {
                 }
                 loadFeed(1, done);
             }
+
+            loadFeed(0, cbLoadSecondFeed());
 
         });
 
