@@ -34,8 +34,7 @@ $(function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.url).toBeDefined();
                 expect(feed.url).not.toBeNull();
-                //use two to check for just quotes("")
-                expect(feed.url.length).toBeGreaterThan(2);
+                expect(feed.url.length).toBeGreaterThan(0);
             });
         });
 
@@ -49,6 +48,7 @@ $(function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.name).toBeDefined();
                 expect(feed.name).not.toBeNull();
+                expect(feed.name.length).toBeGreaterThan(0);
             });
         });
     });
@@ -62,7 +62,6 @@ $(function() {
          */
 
         it('is hidden by default', function() {
-            expect($('body').hasClass('menu-hidden').toBeDefined);
             expect($('body').hasClass('menu-hidden')).toBe(true);
         });
 
@@ -76,7 +75,6 @@ $(function() {
         it('changes visibility when the menu icon is clicked', function() {
             expect(menuIconTest).toBeDefined();
             menuIconTest.click();
-            expect($('body').hasClass('menu-hidden').toBeDefined);
             expect($('body').hasClass('menu-hidden')).toBe(false);
             menuIconTest.click();
             expect($('body').hasClass('menu-hidden')).toBe(true);
@@ -101,10 +99,9 @@ $(function() {
         });
 
 
-        it('should have one at least one entry', function(done) {
-            expect($('.feed').find('.entry').length).toBeDefined();
-            expect($('.feed').find('.entry').length).toBeGreaterThan(0);
-            done();
+        it('should have one at least one entry', function() {
+            expect($('.feed .entry').length).toBeDefined();
+            expect($('.feed .entry').length).toBeGreaterThan(0);
 
         });
 
@@ -123,11 +120,15 @@ $(function() {
         var testContent, testContent2;
 
         beforeEach(function(done) {
-            loadFeed(0);
-            if ($('.feed').find('h2').first().text()) {
-                testContent = $('.feed').find('h2').first().text();
+            loadFeed(0, cbLoadSecondFeed());
+
+            function cbLoadSecondFeed() {
+                if ($('.feed').find('h2').first().text()) {
+                    testContent = $('.feed').find('h2').first().text();
+                }
+                loadFeed(1, done);
             }
-            loadFeed(1, done);
+
         });
 
 
