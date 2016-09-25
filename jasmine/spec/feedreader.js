@@ -125,7 +125,12 @@ $(function() {
                 if ($('.feed').find('h2').first().text()) {
                     testContent = $('.feed').find('h2').first().text();
                 }
-                loadFeed(1, done);
+                loadFeed(1, function() {
+                    if ($('.feed').find('h2').first().text()) {
+                        testContent2 = $('.feed').find('h2').first().text();
+                    }
+                    done();
+                });
             }
 
             loadFeed(0, cbLoadSecondFeed());
@@ -135,7 +140,6 @@ $(function() {
 
         it('should change content', function(done) {
             expect(testContent).toBeDefined();
-            testContent2 = $('.feed').find('h2').first().text();
             expect(testContent2).toBeDefined();
             expect(testContent).not.toBe(testContent2);
             done();
