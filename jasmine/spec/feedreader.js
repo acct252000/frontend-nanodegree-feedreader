@@ -125,7 +125,7 @@ $(function() {
                 if ($('.feed').find('h2').first().text()) {
                     testContent = $('.feed').find('h2').first().text();
                 }
-                loadFeed(1, function() {
+                loadFeed(0, function() {
                     if ($('.feed').find('h2').first().text()) {
                         testContent2 = $('.feed').find('h2').first().text();
                     }
@@ -133,7 +133,7 @@ $(function() {
                 });
             }
 
-            loadFeed(0, cbLoadSecondFeed());
+            loadFeed(1, cbLoadSecondFeed);
 
         });
 
